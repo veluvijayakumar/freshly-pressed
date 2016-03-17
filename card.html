@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="FPApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    
+    <!--Setup Cordova-->
+    <meta http-equiv="Content-Security-Policy" content="default-src *;">
+    <script src="cordova.js"></script>
+    
+    <!--Setup Ionic-->
+    <link rel="stylesheet" href="lib/ionic/css/ionic.css">
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    
+    <!--Setup Application-->
+    <link rel="stylesheet" href="big.css">
+    <script src="index.js"></script>
+</head>
+<body data-ng-controller="FPCtrl">
+    <ion-pane>
+        <ion-header-bar class="bar-dark">
+            <h1 class="title">Freshly Pressed ({{blogs.length}})</h1>
+        </ion-header-bar>
+        <ion-content>
+        <ion-refresher pulling-text="Release to reload" on-refresh="reload()">
+        </ion-refresher>
+            <div class="list card" data-ng-repeat="b in blogs">
+                <div class="item item-avatar">
+                    <img data-ng-src="{{b.avatar_URL}}" alt="">
+                    <h2 data-ng-bind-html="b.title"></h2>
+                    <p> {{ b.name }} </p>
+                </div>
+                <div class="item item-body">
+                    <img data-ng-if="b.featured_image" data-ng-src="{{ b.featured_image }}" alt="" class="full-image">            
+                    <p data-ng-bind-html="b.excerpt"></p>
+                </div>
+                <div class="item tabs tabs-secondary tabs-icon-left">
+                   <a class="tab-item" data-ng-click="show($index)">
+                       <i class="icon ion-ios-book"></i>
+                       Read
+                   </a>
+                    <a class="tab-item" data-ng-click="share($index)">
+                        <i class="icon ion-share"></i>
+                        Share
+                    </a>
+                </div>
+            </div>
+            <ion-infinite-scroll on-infinite="loadMore()" ng-if="deviceReady"></ion-infinite-scroll>
+        </ion-content>
+    </ion-pane>
+</body>
+</html>

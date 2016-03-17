@@ -1,0 +1,10 @@
+.thumbnail {
+    height: 42px;
+    border-radius: 10px;
+    float: left;
+    margin-right: 12px;
+}
+
+.item h2 {
+    font-weight: bold;
+}
